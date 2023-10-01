@@ -1,7 +1,7 @@
 OUTPUT_DIR=bin
 BINARY=gcp-paas
 
-.PHONY: init, clean, test, run, build, deploy, undeploy
+.PHONY: init, clean, test, run, generate, build, deploy, undeploy
 
 init:
 	go fmt ./...
@@ -9,12 +9,17 @@ init:
 
 clean:
 	rm -fr ./${OUTPUT_DIR}
+	rm -fr ./api/gen
 
 run:
 	go run cli/main.go
 
-build:
-	go build -o ./${OUTPUT_DIR}/${BINARY} ./...
+generate: 
+	cd api; buf generate
+	make init
+
+build: 
+	go build -o ./${OUTPUT_DIR}/${BINARY} ./cli/main.go
 
 deploy:
 

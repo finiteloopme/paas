@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package infrav1beta1;
+option go_package = "github.com/finiteloopme/paas/infra;infrav1beta1";
+
+enum OperationType{
+	option allow_alias = false;
+	OP_CREATE = 0;
+	OP_UPDATE = 1;
+	OP_DELETE = 2;
+	OP_DRYRUN = 3;
+}
+
+message ProcessFolderRequest {
+	string id = 1;
+	// Either organisation or folder should be specified.  
+	// Not both
+	string organisation = 2;
+	string folder = 3;
+	OperationType operation = 4;
+}
+
+message ProcessFolderResponse {}
+
+service InfraResourcesService{
+	rpc ProcessFolder(ProcessFolderRequest) returns (ProcessFolderResponse);
+}
