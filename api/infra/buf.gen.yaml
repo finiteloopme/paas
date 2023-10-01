@@ -1,7 +1,6 @@
 version: v1
 managed:
   enabled: true
-  
 plugins:
   - plugin: buf.build/protocolbuffers/go:v1.31.0 # Using remote plugin
     out: gen/proto/go
@@ -9,3 +8,6 @@ plugins:
   - plugin: buf.build/grpc/go:v1.3.0
     out: gen/proto/go
     opt: paths=source_relative,require_unimplemented_servers=false
+  - plugin: buf.build/grpc-ecosystem/gateway:v2.18.0
+    out: gen/proto/go
+    opt: paths=source_relative

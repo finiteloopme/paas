@@ -1,6 +1,9 @@
 syntax = "proto3";
 
 package infrav1beta1;
+
+import "google/api/annotations.proto";
+
 option go_package = "github.com/finiteloopme/paas/infra;infrav1beta1";
 
 enum OperationType{
@@ -22,6 +25,10 @@ message ProcessFolderRequest {
 
 message ProcessFolderResponse {}
 
-service InfraResourcesService{
-	rpc ProcessFolder(ProcessFolderRequest) returns (ProcessFolderResponse);
+service InfraResources{
+	rpc ProcessFolder(ProcessFolderRequest) returns (ProcessFolderResponse){
+		option (google.api.http) = {
+			post: "/infra/folder"
+		};
+	}
 }
